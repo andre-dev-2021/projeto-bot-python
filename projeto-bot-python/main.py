@@ -19,8 +19,8 @@ if __name__ == "__main__":
                     if msg_type == 'bot_command':
                         match text:
                             case '/start':
-                                send_message(chat_id,"👋 Olá, sou Skybot 🤖!")
-                                send_message(chat_id, "Digite '/help' para conhecer os comandos disponíveis.")
+                                send_message(chat_id,"""👋 Olá, sou Skybot 🤖!
+Digite '/help' para conhecer os comandos disponíveis.""")
                             
                             case '/clima':
                                 last_choice = "clima"
@@ -34,9 +34,9 @@ if __name__ == "__main__":
                                 send_message(chat_id, """
                             COMANDOS:
                                              
-    /clima: Receba o clima atual
-    /previsao: Receba a previsão do tempo para os próximos 5 dias
-    /help: Verifique os comandos disponiveis.
+/clima: Receba o clima atual
+/previsao: Receba a previsão do tempo para os próximos 5 dias
+/help: Verifique os comandos disponiveis.
                             """)
                     else:
                         if last_choice == "clima":
@@ -49,7 +49,5 @@ if __name__ == "__main__":
 
                 continue
 
-            time.sleep(1)
         except Exception as e:
             send_message(chat_id, "🤔 Não entendi sua pergunta, digite '/help' para saber como utilizar este chatbot.")
-            time.sleep(1)

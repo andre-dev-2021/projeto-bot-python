@@ -61,11 +61,11 @@ def weather_now(cidade: str) -> str:
         return f"""
         Clima atual em 📍{res['name'].capitalize()}: 
 
-    {ICONS[res['weather'][0]['icon']]} {res['weather'][0]['description'].capitalize()} - {round(res['main']['temp'])}°C
-    🌡️ Mínima/Máxima: {res['main']['temp_min']:.1f}°C / {res['main']['temp_max']:.1f}°C
-    🥵 Sensação térmica: {res['main']['feels_like']:.1f}°C
-    💧 Umidade do ar: {res['main']['humidity']}%
-    🍃 Vento: {(res['wind']['speed']*3.6):.2f} Km/h
+{ICONS[res['weather'][0]['icon']]} {res['weather'][0]['description'].capitalize()} - {round(res['main']['temp'])}°C
+🌡️ Mínima/Máxima: {res['main']['temp_min']:.1f}°C / {res['main']['temp_max']:.1f}°C
+🥵 Sensação térmica: {res['main']['feels_like']:.1f}°C
+💧 Umidade do ar: {res['main']['humidity']}%
+🍃 Vento: {(res['wind']['speed']*3.6):.2f} Km/h
         """
     
     return "☹️ Não consegui encontrar essa cidade."
@@ -95,18 +95,16 @@ def weather_forecast(cidade: str) -> str:
         text = f"Previsão para 📍{cidade.capitalize()}: \n\n"
 
         for dia, previsoes in dias.items():
-            minimas = [p["main"]["temp_min"] for p in previsoes]
-            maximas = [p["main"]["temp_max"] for p in previsoes]
+            temp = [p["main"]["temp"] for p in previsoes]
             desc = [p["weather"][0]["description"] for p in previsoes]
             icon = [p["weather"][0]["icon"] for p in previsoes]
 
             desc = Counter(desc).most_common(1)[0][0].capitalize()
             icon = Counter(icon).most_common(1)[0][0]
 
-            temp_min = min(minimas)
-            temp_max = max(maximas)
+            temp = max(temp)
 
-            text += f"**{dia[-2:]}/{dia[5:7]}** - {ICONS[icon]} {desc} - 🌡️ {temp_min:.0f}°C / {temp_max:.0f}°C \n"
+            text += f"{dia[-2:]}/{dia[5:7]} - {ICONS[icon]} {desc} - {temp:.0f}°C\n"
 
         return text
     
