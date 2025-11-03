@@ -8,24 +8,24 @@ load_dotenv('.env')
 BASE_URL = "http://api.openweathermap.org"
 TOKEN = os.getenv("WEATHER_TOKEN")
 ICONS = {
-    "01d": 127751,
-    "01n": 127750,
-    "02d": 9729,
-    "02n": 9729,
-    "03d": 9729,
-    "03n": 9729,
-    "04d": 9729,
-    "04n": 9729,
-    "09d": 127782,
-    "09n": 127783,
-    "10d": 127782,
-    "10n": 127783,
-    "11d": 9928,
-    "11n": 9928,
-    "13d": 10052,
-    "13n": 10052,
-    "50d": 127745,
-    "50n": 127745
+    "01d": "☀️",
+    "01n": "☀️",
+    "02d": "⛅",
+    "02n": "⛅",
+    "03d": "☁️",
+    "03n": "☁️",
+    "04d": "☁️",
+    "04n": "☁️",
+    "09d": "🌧️",
+    "09n": "🌧️",
+    "10d": "🌦️",
+    "10n": "🌦️",
+    "11d": "⛈️",
+    "11n": "⛈️",
+    "13d": "❄️",
+    "13n": "❄️",
+    "50d": "🌫️",
+    "50n": "🌫️"
 }
 
 def geolocalize(cidade: str) -> tuple:
@@ -59,16 +59,16 @@ def weather_now(cidade: str) -> str:
         res = res.json()
 
         return f"""
-        Tempo agora em {chr(128205)} {res['name'].capitalize()}: 
+        Clima atual em 📍{res['name'].capitalize()}: 
 
-        {chr(ICONS[res['weather'][0]['icon']])}  {res['weather'][0]['description'].capitalize()} {round(res['main']['temp'])}°C
-        {chr(127777)}  Temperatura Mínima/Máxima: {res['main']['temp_min']:.1f}°C / {res['main']['temp_max']:.1f}°C
-        {chr(127777)}  Sensação: {res['main']['feels_like']:.1f} °C
-        {chr(128167)} Umidade do ar: {res['main']['humidity']} %
-        {chr(127811)} Vento: {(res['wind']['speed']*3.6):.2f} Km/h
+    {ICONS[res['weather'][0]['icon']]} {res['weather'][0]['description'].capitalize()} - {round(res['main']['temp'])}°C
+    🌡️ Mínima/Máxima: {res['main']['temp_min']:.1f}°C / {res['main']['temp_max']:.1f}°C
+    🥵 Sensação térmica: {res['main']['feels_like']:.1f}°C
+    💧 Umidade do ar: {res['main']['humidity']}%
+    🍃 Vento: {(res['wind']['speed']*3.6):.2f} Km/h
         """
     
-    return f"{chr(10071)} Não foi possivel consultar."
+    return "☹️ Não consegui encontrar essa cidade."
     
 
 def weather_forecast(cidade: str) -> str:
@@ -92,7 +92,7 @@ def weather_forecast(cidade: str) -> str:
             dia = item["dt_txt"].split(" ")[0]
             dias[dia].append(item)
 
-        text = f"Previsão dos próximos 5 dias para {chr(128205)} {cidade.capitalize()}: \n\n"
+        text = f"Previsão para 📍{cidade.capitalize()}: \n\n"
 
         for dia, previsoes in dias.items():
             minimas = [p["main"]["temp_min"] for p in previsoes]
@@ -106,8 +106,8 @@ def weather_forecast(cidade: str) -> str:
             temp_min = min(minimas)
             temp_max = max(maximas)
 
-            text += f"{dia[-2:]}/{dia[5:7]} - {chr(ICONS[icon])} {desc} - {chr(127777)}  {temp_min:.0f}°C / {temp_max:.0f}°C \n"
+            text += f"**{dia[-2:]}/{dia[5:7]}** - {ICONS[icon]} {desc} - 🌡️ {temp_min:.0f}°C / {temp_max:.0f}°C \n"
 
         return text
     
-    return f"{chr(10071)} Não foi possivel consultar."
+    return "☹️ Não consegui encontrar essa cidade."
