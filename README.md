@@ -43,5 +43,5 @@ python main.py
 ## Colaboradores
 
 - [André Pereira](https://github.com/andre-dev-2021)
-- [Rafael Baraúna](https://github.com/finmac4barauna)
+- [Rafael Baraúna](https://github.com/finmacbarauna)
 - [Samuel Andrey](https://github.com/Samuelssa7)
