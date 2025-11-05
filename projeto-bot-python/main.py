@@ -1,7 +1,5 @@
 from telegram import get_updates, send_message
 from weather import weather_forecast, weather_now
-import time
-
 
 if __name__ == "__main__":
     last_update_id = None
@@ -20,7 +18,7 @@ if __name__ == "__main__":
                         match text:
                             case '/start':
                                 send_message(chat_id,"""👋 Olá, sou Skybot 🤖!
-Digite '/help' para conhecer os comandos disponíveis.""")
+Digite '/clima' para saber o clima atual ou use '/previsao' para ver a previsão da semana.""")
                             
                             case '/clima':
                                 last_choice = "clima"
@@ -28,15 +26,15 @@ Digite '/help' para conhecer os comandos disponíveis.""")
                             
                             case '/previsao':
                                 last_choice = "previsao"
-                                send_message(chat_id, "🤔 Para qual cidade você deseja?")
+                                send_message(chat_id, "Para qual cidade você deseja?")
 
                             case '/help':
                                 send_message(chat_id, """
-                            COMANDOS:
+                            🤖 COMANDOS:
                                              
-/clima: Receba o clima atual
-/previsao: Receba a previsão do tempo para os próximos 5 dias
-/help: Verifique os comandos disponiveis.
+/clima - Receba o clima atual
+/previsao - Receba a previsão do tempo para os próximos 5 dias
+/help - Verifique os comandos disponiveis.
                             """)
                     else:
                         if last_choice == "clima":
@@ -50,4 +48,4 @@ Digite '/help' para conhecer os comandos disponíveis.""")
                 continue
 
         except Exception as e:
-            send_message(chat_id, "🤔 Não entendi sua pergunta, digite '/help' para saber como utilizar este chatbot.")
+            send_message(chat_id, "🤔 Não entendi sua pergunta, tente digitar '/help' para conhecer os comandos disponíveis.")
