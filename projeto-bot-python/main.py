@@ -48,4 +48,4 @@ Digite '/clima' para saber o clima atual ou use '/previsao' para ver a previsão
                 continue
 
         except Exception as e:
-            send_message(chat_id, "🤔 Não entendi sua pergunta, tente digitar '/help' para conhecer os comandos disponíveis.")
+            pass
